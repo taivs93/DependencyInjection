@@ -18,14 +18,17 @@ public class ApplicationContext {
             String beanName = classOfPackage.getSimpleName();
             beans.put(beanName, instance);
 
-            System.out.println("Created instance of: " + beanName);
-
+            System.out.println("Init instance " + beanName);
             for (Field field : classOfPackage.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Autowired.class)) {
                     Qualifier qualifier = field.getAnnotation(Qualifier.class);
-                    String dependencyName = qualifier != null ? qualifier.value() : field.getType().getSimpleName();
+                    String dependencyName;
+                    if (field.isAnnotationPresent(Qualifier.class)) {
+                        dependencyName = field.getAnnotation(Qualifier.class).value();
+                    } else {
+                        dependencyName = field.getName();
+                    }
                     Object fieldInstance = beans.get(dependencyName);
-
                     if (fieldInstance == null) {
                         for (Object obj : beans.values()) {
                             Class<?> impClass = obj.getClass();

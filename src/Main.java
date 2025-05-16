@@ -11,6 +11,7 @@ public class Main {
         applicationContext.reflectionComponent(Class.forName("service.NotificationService"));
 
         NotificationService service = (NotificationService) applicationContext.getBean("NotificationService");
+
         service.send("Hi");
     }
 }
