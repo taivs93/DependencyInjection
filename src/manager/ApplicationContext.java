@@ -17,7 +17,6 @@ public class ApplicationContext {
             Object instance = classOfPackage.getDeclaredConstructor().newInstance();
             String beanName = classOfPackage.getSimpleName();
             beans.put(beanName, instance);
-
             System.out.println("Init instance " + beanName);
             for (Field field : classOfPackage.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Autowired.class)) {

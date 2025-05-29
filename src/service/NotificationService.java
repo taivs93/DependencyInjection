@@ -6,9 +6,14 @@
 
     @Component
     public class NotificationService {
+
+        private MessageService messageService;
+
         @Autowired
         @Qualifier("EmailService")
-        private MessageService messageService;
+        public void setMessageService(MessageService messageService) {
+            this.messageService = messageService;
+        }
 
         public void send(String message) {
             messageService.sendMessage(message);
